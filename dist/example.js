@@ -1,5 +1,5 @@
 "use strict";
-var example = function () {
+function example() {
     // class (여전히 prototype 기반)
     var Student = /** @class */ (function () {
         function Student(firstName, middleInitial, lastName) {
@@ -16,11 +16,10 @@ var example = function () {
     }
     var user = new Student("Jane", "M.", "User");
     return greeter(user);
-};
+}
 window.addEventListener('DOMContentLoaded', function () {
-    var out = example();
     var div = document.createElement("div");
-    div.textContent = out;
+    div.textContent = "example: ".concat(example());
     document.body.appendChild(div);
 });
 //# sourceMappingURL=example.js.map

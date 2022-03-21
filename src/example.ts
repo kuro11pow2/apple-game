@@ -1,5 +1,5 @@
 
-const example = () => {
+function example() {
 
     // interface
     interface Person {
@@ -26,9 +26,7 @@ const example = () => {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    let out = example();
-
     let div = document.createElement("div");
-    div.textContent = out;
+    div.textContent = `example: ${example()}`;
     document.body.appendChild(div);
 });
