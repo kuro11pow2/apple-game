@@ -6,16 +6,16 @@ function ErasedType() {
     function strName(x) {
         return "Hello, " + x.name;
     }
-    var obj = {
+    const obj = {
         x: 0,
         y: 0,
         name: "Origin",
     };
-    return "".concat(strPoint(obj), " ").concat(strName(obj));
+    return `${strPoint(obj)} ${strName(obj)}`;
 }
-window.addEventListener('DOMContentLoaded', function () {
-    var div = document.createElement("div");
-    div.textContent = "ErasedType: ".concat(ErasedType());
+window.addEventListener('DOMContentLoaded', () => {
+    let div = document.createElement("div");
+    div.textContent = `ErasedType: ${ErasedType()}`;
     document.body.appendChild(div);
 });
 //# sourceMappingURL=ts4java.js.map

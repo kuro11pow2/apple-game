@@ -4,48 +4,47 @@ function union() {
     function getLength(obj) {
         return obj.length;
     }
-    var state = "open";
+    let state = "open";
     return getLength(state).toString();
 }
 function generic() {
-    var arr = ["hello", "world"];
+    let arr = ["hello", "world"];
     return arr.join(" ");
 }
 function duckTyping() {
-    var BackpackImpl = /** @class */ (function () {
-        function BackpackImpl() {
+    class BackpackImpl {
+        constructor() {
             this.container = new Array();
         }
-        BackpackImpl.prototype.add = function (obj) {
+        add(obj) {
             this.container.push(obj);
-        };
-        BackpackImpl.prototype.get = function () {
-            var out = this.container.pop();
+        }
+        get() {
+            let out = this.container.pop();
             if (out == undefined)
                 throw new Error();
             return out;
-        };
-        return BackpackImpl;
-    }());
-    var realBackpack = new BackpackImpl();
+        }
+    }
+    let realBackpack = new BackpackImpl();
     // Backpack < BackpackImpl 이므로 대입 가능
-    var iterfaceBackpack = realBackpack;
+    let iterfaceBackpack = realBackpack;
     // Backpack == {add, get} 이므로 대입 가능
-    var objectBackpack = { add: 1, get: function () { return "object"; } };
+    let objectBackpack = { add: 1, get: () => "object" };
     realBackpack.add("interface");
     realBackpack.add("real");
-    var object = "".concat(realBackpack.get(), ", ").concat(iterfaceBackpack.get(), ", ").concat(objectBackpack.get());
+    const object = `${realBackpack.get()}, ${iterfaceBackpack.get()}, ${objectBackpack.get()}`;
     return object;
 }
-window.addEventListener('DOMContentLoaded', function () {
-    var div = document.createElement("div");
-    div.textContent = "union: ".concat(union());
+window.addEventListener('DOMContentLoaded', () => {
+    let div = document.createElement("div");
+    div.textContent = `union: ${union()}`;
     document.body.appendChild(div);
     div = document.createElement("div");
-    div.textContent = "generic: ".concat(generic());
+    div.textContent = `generic: ${generic()}`;
     document.body.appendChild(div);
     div = document.createElement("div");
-    div.textContent = "genericClass: ".concat(duckTyping());
+    div.textContent = `genericClass: ${duckTyping()}`;
     document.body.appendChild(div);
 });
 //# sourceMappingURL=ts4js.js.map
