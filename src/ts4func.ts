@@ -18,8 +18,37 @@ function types() {
     return `${n}, ${s}, ${bi}, ${b}, ${String(sb)}, ${nu}, ${un}, ${obj}, ${unk}, ${objlit}, ${v}, ${arr}, ${tup}, ${foo}`
 } 
 
+function boxedType() {
+    let a = (1).toExponential();
+    let b = Number.prototype.toExponential.call(1);
+
+    return `${a} equivalent to ${b}`;
+}
+
+function gradualTyping() {
+    // with "noImplicitAny": false in tsconfig.json, anys: any[]
+    const anys = [];
+    anys.push(1);
+    anys.push("oh no");
+    anys.push({ anything: "goes" });
+
+    // anys.map(anys[1]); // oh no, "oh no" is not a function
+
+    // let sepsis = anys[0] + anys[1]; // this could mean anything
+    
+    return `${anys.join(",")}`;
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     let div = document.createElement("div");
     div.textContent = `types: ${types()}`;
+    document.body.appendChild(div);
+
+    div = document.createElement("div");
+    div.textContent = `boxedType: ${boxedType()}`;
+    document.body.appendChild(div);
+
+    div = document.createElement("div");
+    div.textContent = `gradualTyping: ${gradualTyping()}`;
     document.body.appendChild(div);
 });
