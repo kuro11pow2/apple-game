@@ -10,13 +10,13 @@ function types() {
     let obj: object = Object();
     let unk: unknown = "unknown"; // 모든 타입의 집합
     let ne: never; // 공집합
-    let objlit = { property: Number};
-    let v: void = (() => {})();
+    let objlit = { property: Number };
+    let v: void = (() => { })();
     let arr: number[] = [1, 2, 3];
     let tup: [number, string] = [1, "hi"];
     let foo: <T, U>(a: T, b: U) => T = (a, b) => a;
     return `${n}, ${s}, ${bi}, ${b}, ${String(sb)}, ${nu}, ${un}, ${obj}, ${unk}, ${objlit}, ${v}, ${arr}, ${tup}, ${foo}`
-} 
+}
 
 function boxedType() {
     let a = (1).toExponential();
@@ -35,8 +35,28 @@ function gradualTyping() {
     // anys.map(anys[1]); // oh no, "oh no" is not a function
 
     // let sepsis = anys[0] + anys[1]; // this could mean anything
-    
+
     return `${anys.join(",")}`;
+}
+
+function structuralTyping() {
+    // @strict: false
+    let o = { x: "hi", extra: 1 }; // ok
+    let o2: { x: string } = o; // ok
+
+    type One = { p: string };
+    interface Two {
+        p: string;
+    }
+    class Three {
+        p = "Hello";
+    }
+
+    let x: One = { p: "hi" };
+    let two: Two = x;
+    two = new Three();
+
+    return `${o.x}, ${o2.x}, ${x.p}, ${two.p}`;
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -50,5 +70,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     div = document.createElement("div");
     div.textContent = `gradualTyping: ${gradualTyping()}`;
+    document.body.appendChild(div);
+
+    div = document.createElement("div");
+    div.textContent = `structuralTyping: ${structuralTyping()}`;
     document.body.appendChild(div);
 });

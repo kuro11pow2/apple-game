@@ -32,6 +32,20 @@ function gradualTyping() {
     // let sepsis = anys[0] + anys[1]; // this could mean anything
     return `${anys.join(",")}`;
 }
+function structuralTyping() {
+    // @strict: false
+    let o = { x: "hi", extra: 1 }; // ok
+    let o2 = o; // ok
+    class Three {
+        constructor() {
+            this.p = "Hello";
+        }
+    }
+    let x = { p: "hi" };
+    let two = x;
+    two = new Three();
+    return `${o.x}, ${o2.x}, ${x.p}, ${two.p}`;
+}
 window.addEventListener('DOMContentLoaded', () => {
     let div = document.createElement("div");
     div.textContent = `types: ${types()}`;
@@ -41,6 +55,9 @@ window.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(div);
     div = document.createElement("div");
     div.textContent = `gradualTyping: ${gradualTyping()}`;
+    document.body.appendChild(div);
+    div = document.createElement("div");
+    div.textContent = `structuralTyping: ${structuralTyping()}`;
     document.body.appendChild(div);
 });
 //# sourceMappingURL=ts4func.js.map
