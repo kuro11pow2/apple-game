@@ -46,6 +46,28 @@ function structuralTyping() {
     two = new Three();
     return `${o.x}, ${o2.x}, ${x.p}, ${two.p}`;
 }
+function unions() {
+    function start(arg) {
+        // this is super common in JavaScript
+        if (typeof arg === "string") {
+            return commonCase(arg);
+        }
+        else if (Array.isArray(arg)) {
+            return arg.map(commonCase).join(",");
+        }
+        else if (typeof arg === "function") {
+            return commonCase(arg());
+        }
+        else {
+            return commonCase(arg.s);
+        }
+        function commonCase(s) {
+            // finally, just convert a string to another string
+            return s;
+        }
+    }
+    return `${start("hi")}, ${start(["hi", "there"])}, ${start(() => "hi")}, ${start({ s: "hi" })}`;
+}
 window.addEventListener('DOMContentLoaded', () => {
     let div = document.createElement("div");
     div.textContent = `types: ${types()}`;
@@ -58,6 +80,9 @@ window.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(div);
     div = document.createElement("div");
     div.textContent = `structuralTyping: ${structuralTyping()}`;
+    document.body.appendChild(div);
+    div = document.createElement("div");
+    div.textContent = `unions: ${unions()}`;
     document.body.appendChild(div);
 });
 //# sourceMappingURL=ts4func.js.map
